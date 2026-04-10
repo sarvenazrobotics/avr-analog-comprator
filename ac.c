@@ -1,17 +1,9 @@
-/*
- * ac.c
- *
- * Created: 4/10/2026 2:20:23 PM
- * Author: Sarve
- */
-
 #include <io.h>
+#include <delay.h>
 
-void main(void)
-{
-while (1)
-    {
-    // Please write your application code here
-
-    }
-}
+#define LED1(x) (x==1 ? (PORTB|=1<<0):(PORTB&=~(1<<0)));
+#define LED2(x) (x==1 ? (PORTB|=1<<1):(PORTB&=~(1<<1)));
+#define LED3(x) (x==1 ? (PORTB|=1<<2):(PORTB&=~(1<<2)));
+#define LED4(x) (x==1 ? (PORTB|=1<<3):(PORTB&=~(1<<3)));
+#define LED5(x) (x==1 ? (PORTB|=1<<4):(PORTB&=~(1<<4)));
+#define LED6(x) (x==1 ? (PORTB|=1<<5):(PORTB&=~(1<<5)));
