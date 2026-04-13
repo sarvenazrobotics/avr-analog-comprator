@@ -9,4 +9,7 @@
 
 
  ## Overview 
-This AVR firmware continuously monitors six analog input channels (ADC0–ADC5) using the microcontroller's built‑in analog comparator, which is multiplexed to compare each input against the voltage on AIN0 (or an internal reference). The comparison result for each channel is displayed in real‑time on six LEDs connected to PORTB0–PORTB5: an LED turns on when the corresponding analog input voltage exceeds the reference, and off when it falls below.
+This AVR firmware continuously monitors six analog input channels (ADC0–ADC5) using the microcontroller's built‑in analog comparator, which is multiplexed to compare each input against the voltage on AIN0 (or an internal reference). The comparison result for each channel is displayed in real‑time on six LEDs connected to PORTB0–PORTB5: an LED turns on when the corresponding analog input voltage exceeds the reference, and off when it falls below.. By sequentially setting ADMUX to 0 through 5, reading the ACO bit in ACSR after a short stabilization delay, and using bit‑masking macros to drive the LEDs, the system provides a simple, low‑power visual indicator of relative voltage levels without requiring an analog‑to‑digital conversion.
+
+
+
