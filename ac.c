@@ -14,6 +14,7 @@ void main(void)
     ADCSRA=0;
     ADCSRB=(1<<ACME); //analog comprator multiplexer enable
     ACSR=0; 
+    DIDR1=(1<<AIN1D) | (1<<AIN0D);
     
     while(1)
     {
