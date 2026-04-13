@@ -12,6 +12,22 @@ void main(void)
 {
     DDRB=0xFF;
     ADCSRA=0;
-    ADCSRB=(1<<ACME);
-    ACSR=0;
+    ADCSRB=(1<<ACME); //analog comprator multiplexer enable
+    ACSR=0; 
+    
+    while(1)
+    {
+     ADMUX=0;
+     delay_ms(2);
+     LED1(!!(ACSR & (1<<ACO)));
+    
+    ADMUX=2;
+    delay_ms(2);
+    LED2(!!(ACSR & (1<<ACO)));
+    
+    
+    
+    
+    
+    }
 }
