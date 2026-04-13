@@ -29,6 +29,18 @@ void main(void)
     delay_ms(2);
     LED3(!!(ACSR & (1<<ACO)));
     
+    ADMUX=3;
+    delay_ms(2);
+    LED4(!!(ACSR & (1<<ACO)));
+    
+    ADMUX=4;
+    delay_ms(2);
+    LED4(!!(ACSR & (1<<ACO)));
+    
+    ADMUX=5;
+    delay_ms(2);
+    LED4(!!(ACSR & (1<<ACO)));
+    
     
     
     
