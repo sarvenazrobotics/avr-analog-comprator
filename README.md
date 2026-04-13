@@ -12,7 +12,6 @@
 This AVR firmware continuously monitors six analog input channels (ADC0–ADC5) using the microcontroller's built‑in analog comparator, which is multiplexed to compare each input against the voltage on AIN0 (or an internal reference). The comparison result for each channel is displayed in real‑time on six LEDs connected to PORTB0–PORTB5: an LED turns on when the corresponding analog input voltage exceeds the reference, and off when it falls below.. By sequentially setting ADMUX to 0 through 5, reading the ACO bit in ACSR after a short stabilization delay, and using bit‑masking macros to drive the LEDs, the system provides a simple, low‑power visual indicator of relative voltage levels without requiring an analog‑to‑digital conversion.
 
 ## Features
-## Features
 
 - **Multiplexed Analog Comparison** – Uses a single analog comparator to sequentially monitor up to 6 analog input channels (ADC0–ADC5) by changing the `ADMUX` value.
 
@@ -29,5 +28,26 @@ This AVR firmware continuously monitors six analog input channels (ADC0–ADC5) 
 - **Compact Macros** – Uses simple preprocessor macros (`LED1(x)` through `LED6(x)`) for clean, readable LED control without function call overhead.
 
 - **Continuous Scanning** – Runs in an infinite loop, constantly refreshing all 6 channels for up‑to‑date status indication.
+
+
+  ## How It Works
+
+The AVR microcontroller includes an internal analog comparator that compares two analog voltages: the positive input (AIN0) and the negative input (AIN1). When the voltage on AIN0 is higher than AIN1, the comparator output bit `ACO` in the `ACSR` register is set to 1; otherwise, it's 0.
+
+This firmware extends the comparator's capability using the **Analog Comparator Multiplexer** (enabled by setting the `ACME` bit in `ADCSRB`). When `ACME` is set, the negative input of the comparator can be switched between AIN1 and any of the ADC input pins (ADC0–ADC5) by writing to the `ADMUX` register.
+
+The program operates in a continuous loop:
+
+1. **Select Channel** – The code writes a value (0 through 5) to `ADMUX`, routing the corresponding ADC pin (ADC0 to ADC5) to the comparator's negative input.
+
+2. **Stabilize** – A 2ms delay allows voltages to settle and the comparator output to stabilize after the multiplexer switches.
+
+3. **Read Result** – The `ACO` bit in `ACSR` is tested. If it's 1, the selected input voltage is higher than the reference (AIN0); if 0, it's lower.
+
+4. **Update LED** – The macro corresponding to the current channel turns the LED on (if `ACO` is 1) or off (if `ACO` is 0). The `!!` (double logical NOT) operator converts the bit value to either 0 or 1.
+
+5. **Repeat** – Steps 1–4 repeat for channels 0 through 5, then the loop starts over, continuously refreshing all six LEDs.
+
+The reference voltage for comparison is set by the `ACBG` bit in `ACSR`. In this code, `ACSR = 0` means `ACBG = 0`, so the positive input of the comparator is connected to the AIN0 pin. Users can apply a reference voltage to AIN0, or modify `ACSR` to use the internal 1.1V bandgap reference instead.
 
 
