@@ -32,6 +32,10 @@ This AVR firmware continuously monitors six analog input channels (ADC0–ADC5) 
 
   ## How It Works
 
+  <p align="center">
+  <img src="images/ac.png" width="500" height="300">
+  </p>
+
 The AVR microcontroller includes an internal analog comparator that compares two analog voltages: the positive input (AIN0) and the negative input (AIN1). When the voltage on AIN0 is higher than AIN1, the comparator output bit `ACO` in the `ACSR` register is set to 1; otherwise, it's 0.
 
 This firmware extends the comparator's capability using the **Analog Comparator Multiplexer** (enabled by setting the `ACME` bit in `ADCSRB`). When `ACME` is set, the negative input of the comparator can be switched between AIN1 and any of the ADC input pins (ADC0–ADC5) by writing to the `ADMUX` register.
