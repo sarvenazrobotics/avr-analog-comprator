@@ -25,6 +25,10 @@ void main(void)
     delay_ms(2);
     LED2(!!(ACSR & (1<<ACO)));
     
+    ADMUX=3;
+    delay_ms(2);
+    LED3(!!(ACSR & (1<<ACO)));
+    
     
     
     
