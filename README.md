@@ -42,12 +42,27 @@ The program operates in a continuous loop:
 
 2. **Stabilize** – A 2ms delay allows voltages to settle and the comparator output to stabilize after the multiplexer switches.
 
-3. **Read Result** – The `ACO` bit in `ACSR` is tested. If it's 1, the selected input voltage is higher than the reference (AIN0); if 0, it's lower.
+3. **Read Result** –
+ACO = 1 → AIN0 (reference) is higher than the selected input → LED ON
+
+ACO = 0 → Selected input is higher than AIN0 (reference) → LED OFF
+
+So the LED turns ON when the input voltage is LOWER than the reference (AIN0), not higher.
 
 4. **Update LED** – The macro corresponding to the current channel turns the LED on (if `ACO` is 1) or off (if `ACO` is 0). The `!!` (double logical NOT) operator converts the bit value to either 0 or 1.
 
 5. **Repeat** – Steps 1–4 repeat for channels 0 through 5, then the loop starts over, continuously refreshing all six LEDs.
 
 The reference voltage for comparison is set by the `ACBG` bit in `ACSR`. In this code, `ACSR = 0` means `ACBG = 0`, so the positive input of the comparator is connected to the AIN0 pin. Users can apply a reference voltage to AIN0, or modify `ACSR` to use the internal 1.1V bandgap reference instead.
+
+
+## Usage
+- **Battery voltage monitor** – Set reference to a threshold voltage (e.g., 3.3V) and monitor multiple battery cells
+
+- **Light sensor array** – Connect photoresistors to ADC inputs and observe which sensors are above/below a brightness threshold
+
+- **Water level indicator** – Use probes at different heights; LEDs show which levels are submerged (low resistance = low voltage)
+
+- **Logic probe** – Visualize high/low states of up to 6 digital or analog signals simultaneously
 
 
