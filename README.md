@@ -73,4 +73,15 @@ The reference voltage for comparison is set by the `ACBG` bit in `ACSR`. In this
 
 This project provides a simple, efficient way to monitor up to six analog voltage levels using only the AVR microcontroller's built-in analog comparator, without requiring the ADC peripheral. By multiplexing the comparator's negative input across ADC0–ADC5 and comparing each against a reference voltage on AIN0, the firmware continuously updates six LEDs on PORTB to indicate whether each input is above or below the threshold. The code is compact, low-power, and ideal for threshold detection applications such as battery monitors, light sensors, water level indicators, or logic probes. With minimal external components (six LEDs and current-limiting resistors), this solution offers real-time visual feedback in a cost-effective and resource-efficient package.
 
+## Project Author
+Sarvenaz Ashoori
+
+GitHub: @sarvenazrobotics
+
+Email: sarvenazrobotics@gmail.com
+
+LinkedIn: Sarvenaz Ashoori
+
+
+
 
